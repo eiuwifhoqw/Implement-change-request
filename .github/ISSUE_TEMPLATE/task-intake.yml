@@ -1,0 +1,102 @@
+name: 新任务开工单
+description: 启动一个交付类任务前固定的 9 项需求确认信息
+title: "[任务] "
+labels: ["intake"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        本项目采用跨任务交付契约。标注「默认继承」的字段填写默认值即可，无需另行确认。
+        未决项最多 3 条，每条写明采用的默认值，按默认值先执行，不阻塞开工。
+
+  - type: input
+    id: deliverables
+    attributes:
+      label: 1. 交付物形态与数量
+      description: 文件类型、份数、是否需要可预览
+      placeholder: "例：1 份方案文档 + 1 份自检记录"
+    validations:
+      required: true
+
+  - type: input
+    id: audience
+    attributes:
+      label: 2. 目标读者与使用场景
+      placeholder: "例：本人归档查阅"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: 3. 完成判据（至少 1 条可机械核对）
+      description: 每条写出结论与核对方式，交付前逐条验证
+      placeholder: "C1：9 项均有内容 → 逐项清点文件"
+    validations:
+      required: true
+
+  - type: textarea
+    id: exclusions
+    attributes:
+      label: 4. 明确不做什么
+      description: 默认排除：未提及的技术栈、实现代码、泛泛操作教程、一次性建议
+      value: "默认排除项已继承；本次追加：无"
+    validations:
+      required: true
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: 5. 数据源与事实约束
+      description: 事实必须可溯源；未核实的一律标注「未核实」；禁止编造
+      placeholder: "例：本地文件 + 已核查的公开资料（记录地址与取得日期）"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: naming
+    attributes:
+      label: 6. 命名与版本约定
+      options:
+        - 默认继承：v<主.次>_<yyyymmdd>_<名称> + 旧版本归档
+        - 本次另行指定（在补充说明写明）
+    validations:
+      required: true
+
+  - type: dropdown
+    id: structure
+    attributes:
+      label: 7. 结构与目录约定
+      options:
+        - 默认继承：结构契约（技术栈中立）
+        - 本次另行指定（在补充说明写明）
+    validations:
+      required: true
+
+  - type: textarea
+    id: style
+    attributes:
+      label: 8. 风格 / 格式硬约束
+      description: 无硬约束时填「无」
+      value: "中文；体积与配色无硬约束"
+    validations:
+      required: true
+
+  - type: textarea
+    id: undecided
+    attributes:
+      label: 9. 未决项与默认假设（≤3 条）
+      description: 每条格式：未决问题 / 采用的默认值 / 若错的影响范围 / 能否局部替换
+      value: "无"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: gate
+    attributes:
+      label: 开工确认
+      options:
+        - label: 9 项均有内容，完成判据至少 1 条可机械核对
+          required: true
+        - label: 首次交付前将执行 G1–G8 自检并留下证据
+          required: true
